@@ -1,4 +1,4 @@
-name: CMake
+name: Release build
 
 on:
   push:
@@ -24,6 +24,15 @@ jobs:
     - run: cmake --build .
     - run: cmake --build . --target test
     - run: cmake --build . --target package
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
