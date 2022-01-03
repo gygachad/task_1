@@ -24,9 +24,12 @@ jobs:
     - run: cmake --build .
     - run: cmake --build . --target test
     - run: cmake --build . --target package
+    - run: echo "Github ref " 
+    - run: echo " - ${{ github.ref }}"
 
     - name: Create Linux Release
       id: create_linux_release
+      if: contains(github.ref, "deploy_release")
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -35,7 +38,9 @@ jobs:
         release_name: Release ${{ github.run_number }}
         draft: false
         prerelease: false
+
     - name: Upload Release Asset
+      if: contains(github.ref, "deploy_release")
       id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
