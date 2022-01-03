@@ -11,7 +11,20 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  windows-build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+  
+    - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=ON
+    - run: cmake --build .
+    - run: cmake --build . --target test
+    - run: cmake --build . --target package
+
+  linux-build:
     runs-on: ubuntu-latest
 
     steps:
