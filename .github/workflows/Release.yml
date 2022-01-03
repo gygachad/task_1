@@ -24,8 +24,7 @@ jobs:
     - run: cmake --build .
     - run: cmake --build . --target test
     - run: cmake --build . --target package
-    - run: echo "Github ref " 
-    - run: echo " - ${{ github.ref }}"
+    - run: echo "Github ref - ${{ github.ref }}" 
 
     - name: Create Linux Release
       id: create_linux_release
