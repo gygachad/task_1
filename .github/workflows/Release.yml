@@ -42,8 +42,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_windows_release.outputs.upload_url }}
-        asset_path: ./helloworld-0.0.${{ github.run_number }}.ZIP
-        asset_name: helloworld-0.0.${{ github.run_number }}.ZIP
+        asset_path: ./helloworld-0.0.${{ github.run_number }}-win64.ZIP
+        asset_name: helloworld-0.0.${{ github.run_number }}-win64.ZIP
         asset_content_type: application/zip
 
   linux-build:
