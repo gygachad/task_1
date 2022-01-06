@@ -18,7 +18,7 @@ jobs:
     - name: Checkout private tools
       uses: actions/checkout@v2
       with:
-        repository: https://github.com/google/googletest
+        repository: google/googletest
         path: googletest
 
     - uses: actions/checkout@v2
