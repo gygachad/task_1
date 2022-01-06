@@ -15,6 +15,12 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Checkout private tools
+    uses: actions/checkout@v2
+    with:
+      repository: https://github.com/google/googletest
+      path: googletest
+
     - uses: actions/checkout@v2
       with:
         submodules: true
@@ -81,4 +87,3 @@ jobs:
         asset_path: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
         asset_name: helloworld-0.0.${{ github.run_number }}-Linux.deb
         asset_content_type: application/vnd.debian.binary-package
-        
