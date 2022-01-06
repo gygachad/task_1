@@ -53,6 +53,10 @@ if(WITH_GOOGLE_TEST)
         set(GTEST_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/gtest.lib")
         set(GTEST_MAIN_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/gtest_main.lib")
     endif()
+    
+    if(UNIX)
+        find_package(Threads REQUIRED)
+    endif()
 
     find_package(GTest REQUIRED)
     add_executable(gtest_version gtest_version.cpp)
@@ -98,6 +102,11 @@ else ()
     if(WITH_BOOST_TEST)
         target_compile_options(test_version PRIVATE
             -Wall -Wextra -pedantic -Werror
+        )
+    endif()
+    if(WITH_GOOGLE_TEST)
+        add_link_options(
+            -pthread
         )
     endif()
 endif()
