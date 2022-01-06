@@ -108,11 +108,6 @@ else ()
             -Wall -Wextra -pedantic -Werror
         )
     endif()
-    if(WITH_GOOGLE_TEST)
-        target_link_libraries(
-            gtest_version Threads::Threads
-        )
-    endif()
 endif()
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
