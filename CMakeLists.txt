@@ -106,7 +106,7 @@ else ()
     endif()
     if(WITH_GOOGLE_TEST)
         add_link_options(
-            -pthread
+            -lpthread
         )
     endif()
 endif()
