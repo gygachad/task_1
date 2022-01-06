@@ -5,7 +5,8 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(helloworld VERSION ${PROJECT_VESRION})
 
-option(WITH_BOOST_TEST "Whether to build Boost test" ON)
+option(WITH_BOOST_TEST "Whether to build Boost test" OFF)
+option(WITH_GOOGLE_TEST "Include google test" ON)
 
 configure_file(version.h.in version.h)
 
@@ -45,6 +46,31 @@ if(WITH_BOOST_TEST)
     )
 endif()
 
+if(WITH_GOOGLE_TEST)
+
+    if (WIN32)
+        set(GTEST_INCLUDE_DIR "C:/Program Files (x86)/googletest-distribution/include")
+        set(GTEST_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/gtest.lib")
+        set(GTEST_MAIN_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/gtest_main.lib")
+    endif()
+
+    find_package(GTest REQUIRED)
+    add_executable(gtest_version gtest_version.cpp)
+
+    set_target_properties(gtest_version PROPERTIES
+        CXX_STANDARD 14
+        CXX_STANDARD_REQUIRED ON
+    )
+
+    include_directories(${GTEST_INCLUDE_DIR})
+
+    target_link_libraries(gtest_version
+        ${GTEST_LIBRARY}
+        ${GTEST_MAIN_LIBRARY}
+        helloworld
+    )
+endif()
+
 if (MSVC)
     target_compile_options(helloworld_cli PRIVATE
         /W4
@@ -55,6 +81,11 @@ if (MSVC)
     if(WITH_BOOST_TEST)
         target_compile_options(test_version PRIVATE
             /W4
+        )
+    endif()
+    if(WITH_GOOGLE_TEST)
+        target_compile_options(gtest_version PRIVATE
+            /MT
         )
     endif()
 else ()
@@ -88,4 +119,9 @@ include(CPack)
 if(WITH_BOOST_TEST)
     enable_testing()
     add_test(test_version test_version)
+endif()
+
+if(WITH_GOOGLE_TEST)
+    enable_testing()
+    add_test(gtest_version gtest_version)
 endif()
