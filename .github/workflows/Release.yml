@@ -22,7 +22,7 @@ jobs:
         path: googletest
 
     - run: cmake googletest/.
-    - run: cmake --build googletest/.
+    - run: cmake --build googletest/. --config Release
     - run: cmake --install googletest/.
 
     - uses: actions/checkout@v2
