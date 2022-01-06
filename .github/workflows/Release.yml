@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout googletest
+    - name: Setup googletest
       uses: actions/checkout@v2
       with:
         repository: google/googletest
@@ -23,6 +23,7 @@ jobs:
 
     - run: cmake googletest/.
     - run: cmake --build googletest/.
+    - run: cmake --install googletest/.
 
     - uses: actions/checkout@v2
       with:
