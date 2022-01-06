@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - name: Checkout private tools
-    uses: actions/checkout@v2
-    with:
-      repository: https://github.com/google/googletest
-      path: googletest
+      uses: actions/checkout@v2
+      with:
+        repository: https://github.com/google/googletest
+        path: googletest
 
     - uses: actions/checkout@v2
       with:
