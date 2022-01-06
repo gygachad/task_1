@@ -21,8 +21,8 @@ jobs:
         repository: google/googletest
         path: googletest
 
-    - run: cmake .
-    - run: cmake --build .
+    - run: cmake googletest/.
+    - run: cmake --build googletest/.
 
     - uses: actions/checkout@v2
       with:
