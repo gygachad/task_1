@@ -15,11 +15,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout private tools
+    - name: Checkout googletest
       uses: actions/checkout@v2
       with:
         repository: google/googletest
         path: googletest
+
+    - run: cmake .
+    - run: cmake --build .
 
     - uses: actions/checkout@v2
       with:
@@ -27,7 +30,7 @@ jobs:
   
     - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=OFF
     - run: cmake --build .
-    # - run: cmake --build . --target test
+    #- run: cmake --build . --target test
     - run: cmake --build . --target package
 
     - name: Create Windows Release
