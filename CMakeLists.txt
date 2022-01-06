@@ -54,10 +54,6 @@ if(WITH_GOOGLE_TEST)
         set(GTEST_MAIN_LIBRARY "C:/Program Files (x86)/googletest-distribution/lib/gtest_main.lib")
     endif()
     
-    if(UNIX)
-        find_package(Threads REQUIRED)
-    endif()
-
     find_package(GTest REQUIRED)
     add_executable(gtest_version gtest_version.cpp)
 
@@ -73,6 +69,14 @@ if(WITH_GOOGLE_TEST)
         ${GTEST_MAIN_LIBRARY}
         helloworld
     )
+
+    if(UNIX)
+        find_package(Threads REQUIRED)
+        target_link_libraries(gtest_version
+            pthread
+        )
+    endif()
+
 endif()
 
 if (MSVC)
@@ -105,8 +109,8 @@ else ()
         )
     endif()
     if(WITH_GOOGLE_TEST)
-        add_link_options(
-            -lpthread
+        target_link_libraries(
+            gtest_version Threads::Threads
         )
     endif()
 endif()
