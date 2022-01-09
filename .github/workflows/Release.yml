@@ -31,7 +31,7 @@ jobs:
   
     - run: cmake . -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=OFF
     - run: cmake --build . --config Release
-    #- run: cmake --build . --target test
+    - run: cmake --build . --target RUN_TESTS
     - run: cmake --build . --target package
 
     - name: Create Windows Release
